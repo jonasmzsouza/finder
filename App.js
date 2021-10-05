@@ -3,12 +3,12 @@ import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Login from './components/screens/Login'
-import Home from './components/screens/Home'
-import Cadastro from './components/screens/Cadastro'
-import Gerenciar from './components/screens/Gerenciar'
-import Listar from './components/screens/Listar'
-import { themaColors } from './assets/styles/styles';
+import Login from './src/screens/Login';
+import Home from './src/screens/Home';
+import Cadastro from './src/screens/Cadastro';
+import GerenciarCadastro from './src/components/GerenciarCadastro';
+import ListarItemCadastro from './src/components/ListarItemCadastro';
+import { themaColors } from './src/styles/Styles';
 
 const Stack = createNativeStackNavigator()
 
@@ -44,14 +44,14 @@ const App = (props) => {
         />
 
         <Stack.Screen
-          component={Gerenciar}
-          name="Gerenciar"
+          component={GerenciarCadastro}
+          name="GerenciarCadastro"
           options={({ route }) => ({ title: "Gerenciar " + route.params.screen })}
         />
 
         <Stack.Screen
-          component={Listar}
-          name="Listar"
+          component={ListarItemCadastro}
+          name="ListarItemCadastro"
           options={({ route }) => ({ title: route.params.screen + "s Cadastrados" })}
         />
 

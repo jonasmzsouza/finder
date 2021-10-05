@@ -4,15 +4,14 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { Button } from 'react-native-elements'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import styles, {
   themaColors
-} from '../../assets/styles/styles'
-import Dispositivo from './cadastro/Dispositivo'
-import Ambiente from './cadastro/Ambiente'
+} from '../../styles/Styles'
+import Dispositivo from '../Dispositivo';
+import Ambiente from '../Ambiente';
 
 
 const CadastroTab = createBottomTabNavigator()

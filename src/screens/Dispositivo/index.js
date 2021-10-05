@@ -15,9 +15,9 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import { insertObject } from '../../../assets/data/Db'
+import { insertObject } from '../../database/Db'
 
-import styles, { linearGradienteColor } from '../../../assets/styles/styles'
+import styles, { linearGradienteColor } from '../../styles/Styles'
 
 
 const Dispositivo = (props) => {
@@ -178,7 +178,7 @@ const Dispositivo = (props) => {
             <Button
               buttonStyle={styles.btn}
               onPress={() => {
-                props.navigation.navigate('Gerenciar', {
+                props.navigation.navigate('GerenciarCadastro', {
                   screen: 'Dispositivo',
                 })
               }}

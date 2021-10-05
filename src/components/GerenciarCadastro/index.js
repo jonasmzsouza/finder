@@ -19,11 +19,11 @@ import {
   readAll,
   remove,
   clear
-} from '../../assets/data/Db'
+} from '../../database/Db'
 
-import styles, { linearGradienteColor } from '../../assets/styles/styles'
+import styles, { linearGradienteColor } from '../../styles/Styles'
 
-const Gerenciar = (props) => {
+const GerenciarCadastro = (props) => {
 
   const { screen } = props.route.params || '';
   const [id, setId] = useState('');
@@ -125,7 +125,7 @@ const Gerenciar = (props) => {
     // é exibido e isto não faz sentido... 
     // Então esta condição é para inibir o alert no primeiro clique.
     if (dados.length > 0 && aux == 1) {
-      props.navigation.navigate('Listar', {
+      props.navigation.navigate('ListarItemCadastro', {
         screen: screen,
         dados: dados
       })
@@ -170,8 +170,7 @@ const Gerenciar = (props) => {
           <Button
             buttonStyle={styles.btn}
             onPress={() => {
-              let dados = listarTodos()
-
+              listarTodos()
             }}
             title="Listar todos"
           />
@@ -203,4 +202,4 @@ const Gerenciar = (props) => {
   )
 }
 
-export default Gerenciar
+export default GerenciarCadastro

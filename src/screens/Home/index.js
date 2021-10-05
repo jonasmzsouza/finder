@@ -10,7 +10,7 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import styles, { linearGradienteColor } from '../../assets/styles/styles'
+import styles, { linearGradienteColor } from '../../styles/Styles'
 import localizar from '../../assets/img/localizar.png'
 import solicitacoes from '../../assets/img/solicitacoes.png'
 import cadastros from '../../assets/img/cadastros.png'

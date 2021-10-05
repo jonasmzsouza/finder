@@ -9,9 +9,9 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import styles, { linearGradienteColor } from '../../assets/styles/styles'
+import styles, { linearGradienteColor } from '../../styles/Styles'
 
-const Listar = (props) => {
+const ListarItemCadastro = (props) => {
 
   const { screen, dados } = props.route.params || '';
 
@@ -55,4 +55,4 @@ const Listar = (props) => {
   )
 }
 
-export default Listar
+export default ListarItemCadastro

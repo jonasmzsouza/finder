@@ -18,7 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles, {
   linearGradienteColor,
   themaColors
-} from '../../assets/styles/styles'
+} from '../../styles/Styles'
 
 import finder from '../../assets/img/finder.png'
 
