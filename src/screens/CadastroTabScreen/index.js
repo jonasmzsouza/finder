@@ -10,13 +10,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import styles, {
   themaColors
 } from '../../styles/Styles'
-import Dispositivo from '../Dispositivo';
-import Ambiente from '../Ambiente';
 
+import CadastroAmbienteScreen from '../CadastroAmbienteScreen';
+import CadastroCargoScreen from '../CadastroCargoScreen';
+import CadastroSetorScreen from '../CadastroSetorScreen';
+import CadastroUsuarioScreen from '../CadastroUsuarioScreen';
 
 const CadastroTab = createBottomTabNavigator()
 
-const Cadastro = (props) => {
+const CadastroTabScreen = (props) => {
 
   function renderScreen(screen, name) {
     return (
@@ -26,17 +28,19 @@ const Cadastro = (props) => {
         options={{
           title: name,
           headerTitle: 'Cadastro de ' + name,
-          headerRight: () => (
+          //unmountOnBlur: true,
+          headerRight: () => (          
             <TouchableOpacity
-              style={styles.btnVoltar}
-              onPress={() => {
+              style={styles.btnHeader}
+              onPress={() => { 
                 props.navigation.goBack();
               }}
             >
-              <Text style={[styles.btnVoltarTxt]}>Voltar</Text>
+              <Text style={[styles.btnHeaderTxt]}>Home</Text>
             </TouchableOpacity>
           ),
         }}
+        //listeners={({navigation}) => ({blur: () => navigation.setParams({screen: undefined})})}
       />
     )
   }
@@ -50,10 +54,14 @@ const Cadastro = (props) => {
         headerTintColor: themaColors[2],
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'Dispositivo') {
-            iconName = focused ? 'ios-watch' : 'ios-watch';
+          if (route.name === 'Usuário') {
+            iconName = focused ? 'ios-person' : 'ios-person';
           } else if (route.name === 'Ambiente') {
             iconName = focused ? 'ios-home' : 'ios-home';
+          } else if (route.name === 'Cargo') {
+            iconName = focused ? 'ios-briefcase' : 'ios-briefcase';
+          } else if (route.name === 'Setor') {
+            iconName = focused ? 'ios-business' : 'ios-business';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -62,13 +70,17 @@ const Cadastro = (props) => {
       })}
     >
 
-      {renderScreen(Dispositivo, "Dispositivo")}
+      {renderScreen(CadastroUsuarioScreen, "Usuário")}
 
-      {renderScreen(Ambiente, "Ambiente")}
+      {renderScreen(CadastroAmbienteScreen, "Ambiente")}
+
+      {renderScreen(CadastroCargoScreen, "Cargo")}
+
+      {renderScreen(CadastroSetorScreen, "Setor")}
 
     </CadastroTab.Navigator >
 
   );
 }
 
-export default Cadastro
+export default CadastroTabScreen

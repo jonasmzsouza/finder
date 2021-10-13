@@ -16,14 +16,14 @@ import solicitacoes from '../../assets/img/solicitacoes.png'
 import cadastros from '../../assets/img/cadastros.png'
 import finderLetras from '../../assets/img/finderLetras.png'
 
-const Home = (props) => {
+const HomeScreen = (props) => {
 
   const { usuario } = props.route.params || '';
 
   function renderMediumBtn(name, imageName, screen) {
     return (
       <TouchableOpacity
-        style={[styles.center, styles.btnHome, styles.btnHomeM]}
+        style={[styles.center, styles.btnHomeScreen, styles.btnHomeScreenM]}
         onPress={() => {
           try {
             if (screen == null) {
@@ -38,7 +38,7 @@ const Home = (props) => {
         <Image
           source={imageName}
           style={{}} />
-        <Text style={[styles.btnHomeTxt, styles.btnHomeTxtM]}>{name}</Text>
+        <Text style={[styles.btnHomeScreenTxt, styles.btnHomeScreenTxtM]}>{name}</Text>
       </TouchableOpacity>
     )
   }
@@ -53,7 +53,7 @@ const Home = (props) => {
               props.navigation.reset({
                 index: 0,
                 routes: [{
-                  name: 'Login'
+                  name: 'LoginScreen'
                 }]
               });
             }}
@@ -73,20 +73,22 @@ const Home = (props) => {
           </Text>
 
           <TouchableOpacity
-            style={[styles.center, styles.btnHome, styles.btnHomeL]}
-            onPress={() => { alert('Em desenvolvimento') }}>
+            style={[styles.center, styles.btnHomeScreen, styles.btnHomeScreenL]}
+            onPress={() => { 
+              props.navigation.navigate('LocalizarTabScreen')
+             }}>
             <Image
               source={localizar}
               style={{}} />
-            <Text style={[styles.btnHomeTxt, styles.btnHomeTxtL]}>Localizar</Text>
+            <Text style={[styles.btnHomeScreenTxt, styles.btnHomeScreenTxtL]}>Localizar</Text>
           </TouchableOpacity>
 
-          <View style={[styles.btnHomeGroup]}>
+          <View style={[styles.btnHomeScreenGroup]}>
 
             {renderMediumBtn('Solicitações', solicitacoes)}
 
             {usuario === 'finder' && (
-              renderMediumBtn('Cadastro', cadastros, 'Cadastro')
+              renderMediumBtn('Cadastro', cadastros, 'CadastroTabScreen')
             )}
 
           </View>
@@ -96,4 +98,4 @@ const Home = (props) => {
   )
 }
 
-export default Home
+export default HomeScreen

@@ -4,16 +4,27 @@ import {
 /*
 themaColors[0] -> fundo de botões e header do app, textos da home e icone tab ativo
 themaColors[1] -> fundo do botao home e dos inputs
-themaColors[2] -> textos dos botões e do header
-themaColors[3] -> fundo do botão voltar, 2ª e 3ª cor do linearGradient
+themaColors[2] -> textos dos botões e do header. 2ª cor do linearGradient.
+themaColors[3] -> fundo do botão voltar. 
 themaColors[4] -> fundo da barra de status
 themaColors[5] -> sombra dos botões home
 themaColors[6] -> icone tab inativo
 themaColors[7] -> 1ª cor do linearGradient
+themaColors[8] -> fundo do botão excluir item
 */
-export const themaColors = ['#345AA5', '#E9EEFB', '#FFF', '#174182', '#123469', '#000', 'gray', '#fafcff']
+export const themaColors = [
+  '#345AA5', 
+  '#E9EEFB', 
+  '#FFF', 
+  '#174182', 
+  '#123469', 
+  '#000', 
+  '#808080', 
+  '#f0f8ff',
+  '#F00'
+]
 
-export const linearGradienteColor = [themaColors[7], themaColors[2], themaColors[2]]
+export const linearGradienteColor = [themaColors[7], themaColors[2]]
 
 export default StyleSheet.create({
   btn: {
@@ -25,7 +36,17 @@ export default StyleSheet.create({
   btnAcessar: {
     width: '100%',
   },
-  btnHome: {
+  btnActionsGroup: {
+    width: '30%', 
+    justifyContent : 'center'
+  },
+  btnCancelar:{
+    backgroundColor: themaColors[8],
+    borderRadius: 30,
+    height: 45,
+    marginTop: 10,
+  },
+  btnHomeScreen: {
     backgroundColor: themaColors[1],
     padding: 16,
     borderRadius: 5,
@@ -36,27 +57,27 @@ export default StyleSheet.create({
     shadowRadius: 5,
     opacity: 1
   },
-  btnHomeL: {
+  btnHomeScreenL: {
     width: 250,
     height: 230,
     marginTop: 15
   },
-  btnHomeM: {
+  btnHomeScreenM: {
     width: 115,
     height: 100,
   },
-  btnHomeTxt: {
+  btnHomeScreenTxt: {
     color: themaColors[0],
     paddingTop: 15,
     fontWeight: 'bold',
   },
-  btnHomeTxtL: {
+  btnHomeScreenTxtL: {
     fontSize: 20,
   },
-  btnHomeTxtM: {
+  btnHomeScreenTxtM: {
     fontSize: 14,
   },
-  btnHomeGroup: {
+  btnHomeScreenGroup: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 15
@@ -71,14 +92,14 @@ export default StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
   },
-  btnVoltar: {
+  btnHeader: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: themaColors[3],
     width: 60,
     height: '100%',
   },
-  btnVoltarTxt: {
+  btnHeaderTxt: {
     color: themaColors[2],
     fontSize: 16,
     fontWeight: 'bold'
@@ -104,7 +125,7 @@ export default StyleSheet.create({
     color: themaColors[0]
   },
   inputCadastro: {
-    height: 40,
+    height: 45,
     backgroundColor: themaColors[1],
     borderRadius: 30,
     padding: 10,
@@ -135,5 +156,16 @@ export default StyleSheet.create({
     height: 250,
     justifyContent: 'center',
     borderRadius: 10
-  }
+  },
+  selectCadastroView: {
+    height: 45,
+    borderRadius: 30,
+    marginBottom: 5,
+    overflow: 'hidden',
+    justifyContent: 'center'
+  },
+  selectCadastroPicker: {
+    color: themaColors[0], 
+    backgroundColor: themaColors[1]
+  }  
 });

@@ -22,7 +22,7 @@ import styles, {
 
 import finder from '../../assets/img/finder.png'
 
-const Login = (props) => {
+const LoginScreen = (props) => {
 
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
@@ -57,7 +57,7 @@ const Login = (props) => {
       props.navigation.reset({
         index: 0,
         routes: [{
-          name: 'Home',
+          name: 'HomeScreen',
           params: { usuario }
         }]
       })
@@ -116,4 +116,4 @@ const Login = (props) => {
   )
 }
 
-export default Login
+export default LoginScreen

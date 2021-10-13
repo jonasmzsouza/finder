@@ -1,18 +1,26 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
+import { 
+  StatusBar
+} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Login from './src/screens/Login';
-import Home from './src/screens/Home';
-import Cadastro from './src/screens/Cadastro';
-import GerenciarCadastro from './src/components/GerenciarCadastro';
+import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import LocalizarTabScreen from './src/screens/LocalizarTabScreen';
+import CadastroTabScreen from './src/screens/CadastroTabScreen';
 import ListarItemCadastro from './src/components/ListarItemCadastro';
+import CadastroUsuarioScreen from './src/screens/CadastroUsuarioScreen';
+import CadastroAmbienteScreen from './src/screens/CadastroAmbienteScreen';
+import CadastroCargoScreen from './src/screens/CadastroCargoScreen';
+import CadastroSetorScreen from './src/screens/CadastroSetorScreen';
+
 import { themaColors } from './src/styles/Styles';
 
 const Stack = createNativeStackNavigator()
 
 const App = (props) => {
+
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={themaColors[4]} />
@@ -21,39 +29,71 @@ const App = (props) => {
           headerStyle: {
             backgroundColor: themaColors[0]
           },
-          headerTintColor: themaColors[2]
+          headerTintColor: themaColors[2],
         }}
       >
 
         <Stack.Screen
-          component={Login}
-          name="Login"
+          component={LoginScreen}
+          name="LoginScreen"
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          component={Home}
-          name="Home"
+          component={HomeScreen}
+          name="HomeScreen"
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          component={Cadastro}
-          name="Cadastro"
+          component={LocalizarTabScreen}
+          name="LocalizarTabScreen"
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          component={GerenciarCadastro}
-          name="GerenciarCadastro"
-          options={({ route }) => ({ title: "Gerenciar " + route.params.screen })}
+          component={CadastroTabScreen}
+          name="CadastroTabScreen"
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
           component={ListarItemCadastro}
           name="ListarItemCadastro"
-          options={({ route }) => ({ title: route.params.screen + "s Cadastrados" })}
+          options={({ route }) => ({ title: route.params.title + " Cadastrados" })}
         />
+
+        <Stack.Screen
+          component={CadastroUsuarioScreen}
+          name="Usuario"
+          options={{
+            title : 'Atualização de Usuário'
+          }}
+        />
+
+        <Stack.Screen
+          component={CadastroAmbienteScreen}
+          name="Ambiente"
+          options={{
+            title : 'Atualização de Ambiente'
+          }}
+        />
+
+        <Stack.Screen
+          component={CadastroCargoScreen}
+          name="Cargo"
+          options={{
+            title : 'Atualização de Cargo'
+          }}
+        />
+
+        <Stack.Screen
+          component={CadastroSetorScreen}
+          name="Setor"
+          options={{
+            title : 'Atualização de Setor'
+          }}
+        />                        
 
       </Stack.Navigator>
     </NavigationContainer>
