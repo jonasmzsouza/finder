@@ -29,7 +29,7 @@ const ListarItemCadastro = (props) => {
   const [itemsData, setItemsData] = useState('')
   const [isRefreshing, setIsRefreshing] = useState(false)
 
-  const getInititalData = () => {
+  const getInitialData = () => {
     setItemsData('')
     setIsRefreshing(true)
     let itemAction
@@ -53,7 +53,7 @@ const ListarItemCadastro = (props) => {
   }
 
   useEffect(() => {
-    getInititalData()
+    getInitialData()
   }, [])
 
   const editarItem = (item) => {
@@ -64,10 +64,10 @@ const ListarItemCadastro = (props) => {
       }) 
   }
 
-  const excluirItem = (id) => {
+  const excluirItem = (item) => {
     Alert.alert(
       'Atenção',
-      'Você realmente deseja excluir este ' + screen + ':',
+      'Você realmente deseja excluir este ' + screen + ': ' + item.nome,
       [
         {
           text : 'Sim',
@@ -75,21 +75,21 @@ const ListarItemCadastro = (props) => {
             let itemAction
 
             if (screen === 'Usuario')
-              itemAction = deleteUsuario(id)
+              itemAction = deleteUsuario(item.id)
             
             if (screen === 'Ambiente')
-              itemAction = deleteAmbiente(id)
+              itemAction = deleteAmbiente(item.id)
             
             if (screen === 'Cargo')
-              itemAction = deleteCargo(id)
+              itemAction = deleteCargo(item.id)
             
             if (screen === 'Setor')
-              itemAction = deleteSetor(id)             
+              itemAction = deleteSetor(item.id)             
 
             itemAction
             .then(() => {
               Alert.alert('Sucesso', screen + ' excluído com sucesso!')
-              getInititalData()
+              getInitialData()
             })
             .catch(() => Alert.alert('Erro', 'Não foi possível excluir o ' + screen + '!'))
             
@@ -183,7 +183,7 @@ const ListarItemCadastro = (props) => {
                     name : 'trash',
                     type : 'font-awesome-5'
                   }}
-                  onPress={() => excluirItem(item.id)}
+                  onPress={() => excluirItem(item)}
                   title='Excluir' />                  
               </View>              
 
@@ -192,7 +192,7 @@ const ListarItemCadastro = (props) => {
           )}
           refreshControl={
             <RefreshControl
-            onRefresh={ () => getInititalData()}
+            onRefresh={ () => getInitialData()}
             refreshing={ isRefreshing } 
             colors={ [ themaColors[0] ] } />
           }

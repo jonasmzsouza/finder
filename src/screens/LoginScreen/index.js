@@ -20,7 +20,7 @@ import styles, {
   themaColors
 } from '../../styles/Styles'
 
-import finder from '../../assets/img/finder.png'
+import finder from '../../assets/icons/finder-icon.svg'
 
 const LoginScreen = (props) => {
 
