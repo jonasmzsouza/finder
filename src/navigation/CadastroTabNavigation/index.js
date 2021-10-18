@@ -11,14 +11,14 @@ import styles, {
   themaColors
 } from '../../styles/Styles'
 
-import CadastroAmbienteScreen from '../CadastroAmbienteScreen';
-import CadastroCargoScreen from '../CadastroCargoScreen';
-import CadastroSetorScreen from '../CadastroSetorScreen';
-import CadastroUsuarioScreen from '../CadastroUsuarioScreen';
+import CadastroAmbienteScreen from '../../screens/CadastroAmbienteScreen';
+import CadastroCargoScreen from '../../screens/CadastroCargoScreen';
+import CadastroSetorScreen from '../../screens/CadastroSetorScreen';
+import CadastroUsuarioScreen from '../../screens/CadastroUsuarioScreen';
 
 const CadastroTab = createBottomTabNavigator()
 
-const CadastroTabScreen = (props) => {
+const CadastroTabNavigation = (props) => {
 
   function renderScreen(screen, name) {
     return (
@@ -28,7 +28,6 @@ const CadastroTabScreen = (props) => {
         options={{
           title: name,
           headerTitle: 'Cadastro de ' + name,
-          //unmountOnBlur: true,
           headerRight: () => (          
             <TouchableOpacity
               style={styles.btnHeader}
@@ -40,7 +39,6 @@ const CadastroTabScreen = (props) => {
             </TouchableOpacity>
           ),
         }}
-        //listeners={({navigation}) => ({blur: () => navigation.setParams({screen: undefined})})}
       />
     )
   }
@@ -83,4 +81,4 @@ const CadastroTabScreen = (props) => {
   );
 }
 
-export default CadastroTabScreen
+export default CadastroTabNavigation

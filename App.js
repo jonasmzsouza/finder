@@ -7,8 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import LocalizarTabScreen from './src/screens/LocalizarTabScreen';
-import CadastroTabScreen from './src/screens/CadastroTabScreen';
+import LocalizarTabNavigation from './src/navigation/LocalizarTabNavigation';
+import SolicitacoesTabNavigation from './src/navigation/SolicitacoesTabNavigation';
+import CadastroTabNavigation from './src/navigation/CadastroTabNavigation';
 import ListarItemCadastro from './src/components/ListarItemCadastro';
 import CadastroUsuarioScreen from './src/screens/CadastroUsuarioScreen';
 import CadastroAmbienteScreen from './src/screens/CadastroAmbienteScreen';
@@ -46,14 +47,20 @@ const App = (props) => {
         />
 
         <Stack.Screen
-          component={LocalizarTabScreen}
-          name="LocalizarTabScreen"
+          component={LocalizarTabNavigation}
+          name="LocalizarTabNavigation"
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          component={CadastroTabScreen}
-          name="CadastroTabScreen"
+          component={SolicitacoesTabNavigation}
+          name="SolicitacoesTabNavigation"
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          component={CadastroTabNavigation}
+          name="CadastroTabNavigation"
           options={{ headerShown: false }}
         />
 

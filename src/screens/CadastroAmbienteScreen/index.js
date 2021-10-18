@@ -1,5 +1,4 @@
 import React, {
-  useEffect,
   useState
 } from 'react'
 
@@ -17,10 +16,13 @@ import { Picker } from '@react-native-picker/picker';
 
 import LinearGradient from 'react-native-linear-gradient';
 
+import { useFocusEffect } from '@react-navigation/core';
+
 import styles, { linearGradienteColor } from '../../styles/Styles'
 
-import { getSetores } from '../../services/SetorService';
-import { postAmbiente, putAmbiente } from '../../services/AmbienteService';
+import { getSetores } from '../../stores/services/SetorService';
+import { postAmbiente, putAmbiente } from '../../stores/services/AmbienteService';
+import { getItems } from '../../stores/actions/Actions';
 
 const CadastroAmbienteScreen = (props) => {
 
@@ -42,6 +44,13 @@ const CadastroAmbienteScreen = (props) => {
     setAndar('');
     setTamanho('');
     setNumeroProximidade('');
+  }
+
+  const loadInputModoEditar = () => {
+    if(modoEditar) {
+      setNome(item.nome)
+      setSelectedSetor(item.setor.id)
+    }
   }
 
   const validarDados = () => {
@@ -83,13 +92,6 @@ const CadastroAmbienteScreen = (props) => {
     return true
   }
 
-  const loadInputModoEditar = () => {
-    if(modoEditar) {
-      setNome(item.nome)
-      setSelectedSetor(item.setor.id)
-    }
-  }
-
   const cadastrar = () => {
     if (validarDados()) {
       postAmbiente(codigoDispositivo, nome, selectedSetor, nomeLocalizacao, andar, tamanho, numeroProximidade)
@@ -113,25 +115,20 @@ const CadastroAmbienteScreen = (props) => {
     }
   }
 
-  const getItems = (itemData) => {
-    let items = []
-    items.push(<Picker.Item key={0} label="Selecione..." value={0} />)
-    for (let i=0; i<itemData.length; i++) {
-      items.push(<Picker.Item key={itemData[i].id} label={itemData[i].nome} value={itemData[i].id} />)
-    }
-    return items
-  }
-
   const getSetorData = () => {
     setSetorData('')
     getSetores().then((response) => setSetorData(response.data))
     .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                 
   }
 
-  useEffect(() => {
-    getSetorData()
-    loadInputModoEditar()    
-  }, [])  
+  useFocusEffect(
+    React.useCallback(() => {
+      getSetorData()
+      loadInputModoEditar()
+      return () => {
+      };
+    }, [])
+  );
 
   return (
     <ScrollView style={[styles.container]}>

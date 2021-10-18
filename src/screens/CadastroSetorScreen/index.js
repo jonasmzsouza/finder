@@ -1,5 +1,4 @@
 import React, {
-  useEffect,
   useState
 } from 'react'
 
@@ -17,9 +16,11 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 
+import { useFocusEffect } from '@react-navigation/core';
+
 import styles, { linearGradienteColor } from '../../styles/Styles'
 
-import { postSetor, putSetor } from '../../services/SetorService';
+import { postSetor, putSetor } from '../../stores/services/SetorService';
 
 const CadastroSetorScreen = (props) => {
 
@@ -28,6 +29,12 @@ const CadastroSetorScreen = (props) => {
 
   const limparCampos = () => {
     setNome('');
+  }
+
+  const loadInputModoEditar = () => {
+    if(modoEditar) {
+      setNome(item.nome)
+    }
   }
 
   const validarDados = () => {
@@ -48,12 +55,6 @@ const CadastroSetorScreen = (props) => {
     }
 
     return true
-  }
-
-  const loadInputModoEditar = () => {
-    if(modoEditar) {
-      setNome(item.nome)
-    }
   }
 
   const cadastrar = () => {
@@ -79,9 +80,13 @@ const CadastroSetorScreen = (props) => {
     }
   }
 
-  useEffect(() => {
-    loadInputModoEditar()    
-  }, [])  
+  useFocusEffect(
+    React.useCallback(() => {
+      loadInputModoEditar() 
+      return () => {
+      };
+    }, [])
+  );   
 
   return (
     <ScrollView style={[styles.container]}>

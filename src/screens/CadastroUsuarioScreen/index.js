@@ -1,5 +1,4 @@
 import React, {
-  useEffect,
   useState
 } from 'react'
 
@@ -17,11 +16,14 @@ import { Picker } from '@react-native-picker/picker';
 
 import LinearGradient from 'react-native-linear-gradient';
 
+import { useFocusEffect } from '@react-navigation/core';
+
 import styles, { linearGradienteColor } from '../../styles/Styles'
 
-import { getCargos } from '../../services/CargoService';
-import { getSetores } from '../../services/SetorService';
-import { postUsuario, putUsuario } from '../../services/UsuarioService';
+import { getCargos } from '../../stores/services/CargoService';
+import { getSetores } from '../../stores/services/SetorService';
+import { postUsuario, putUsuario } from '../../stores/services/UsuarioService';
+import { getItems } from '../../stores/actions/Actions';
 
 const CadastroUsuarioScreen = (props) => {
 
@@ -37,6 +39,14 @@ const CadastroUsuarioScreen = (props) => {
     setSelectedCargo(0);
     setSelectedSetor(0);
   }
+
+  const loadInputModoEditar = () => {
+    if(modoEditar) {
+      setNome(item.nome)
+      setSelectedCargo(item.cargo.id)
+      setSelectedSetor(item.setor.id)
+    }
+  } 
 
   const validarDados = () => {
 
@@ -62,15 +72,7 @@ const CadastroUsuarioScreen = (props) => {
     }
 
     return true
-  }
-
-  const loadInputModoEditar = () => {
-    if(modoEditar) {
-      setNome(item.nome)
-      setSelectedCargo(item.cargo.id)
-      setSelectedSetor(item.setor.id)
-    }
-  }  
+  } 
 
   const cadastrar = () => {
     if (validarDados()) {
@@ -95,15 +97,6 @@ const CadastroUsuarioScreen = (props) => {
     }
   }
 
-  const getItems = (itemData) => {
-    let items = []
-    items.push(<Picker.Item key={0} label="Selecione..." value={0} />)
-    for (let i=0; i<itemData.length; i++) {
-      items.push(<Picker.Item key={itemData[i].id} label={itemData[i].nome} value={itemData[i].id} />)
-    }
-    return items
-  }
-
   const getCargoData = () => {
     setCargoData('')
     getCargos().then((response) => setCargoData(response.data))
@@ -116,11 +109,15 @@ const CadastroUsuarioScreen = (props) => {
     .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                
   }
 
-  useEffect(() => {
-    getCargoData()
-    getSetorData()
-    loadInputModoEditar()
-  }, [])
+  useFocusEffect(
+    React.useCallback(() => {
+      getCargoData()
+      getSetorData()
+      loadInputModoEditar()
+      return () => {
+      };
+    }, [])
+  );
 
   return (
     <ScrollView style={[styles.container]}>

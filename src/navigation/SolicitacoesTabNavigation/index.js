@@ -11,29 +11,29 @@ import styles, {
   themaColors
 } from '../../styles/Styles'
 
-import LocalizarPorUsuarioScreen from '../LocalizarPorUsuarioScreen';
-import LocalizarPorCargoScreen from '../LocalizarPorCargoScreen';
+import SolicitacoesRealizadasScreen from '../../screens/SolicitacoesRealizadasScreen';
+import SolicitacoesRecebidasScreen from '../../screens/SolicitacoesRecebidasScreen';
 
-const LocalizarTab = createBottomTabNavigator()
+const SolicitacoesTab = createBottomTabNavigator()
 
-const LocalizarTabScreen = (props) => {
+const SolicitacoesTabNavigation = (props) => {
 
   function renderScreen(screen, name) {
     return (
-      <LocalizarTab.Screen
+      <SolicitacoesTab.Screen
         component={screen}
         name={name}
         options={{
           title: name,
-          headerTitle: 'Localizar por ' + name,
-          headerRight: () => (
+          headerTitle: 'Solicitações ' + name,
+          headerRight: () => (          
             <TouchableOpacity
-              style={styles.btnVoltar}
-              onPress={() => {
+              style={styles.btnHeader}
+              onPress={() => { 
                 props.navigation.goBack();
               }}
             >
-              <Text style={[styles.btnVoltarTxt]}>Voltar</Text>
+              <Text style={[styles.btnHeaderTxt]}>Home</Text>
             </TouchableOpacity>
           ),
         }}
@@ -42,7 +42,7 @@ const LocalizarTabScreen = (props) => {
   }
 
   return (
-    <LocalizarTab.Navigator
+    <SolicitacoesTab.Navigator
       screenOptions={({ route }) => ({
         headerStyle: {
           backgroundColor: themaColors[0]
@@ -50,10 +50,10 @@ const LocalizarTabScreen = (props) => {
         headerTintColor: themaColors[2],
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'Usuário') {
-            iconName = focused ? 'ios-person' : 'ios-person';
-          } else if (route.name === 'Cargo') {
-            iconName = focused ? 'ios-briefcase' : 'ios-briefcase';
+          if (route.name === 'Recebidas') {
+            iconName = focused ? 'ios-arrow-undo' : 'ios-arrow-undo';
+          } else if (route.name === 'Realizadas') {
+            iconName = focused ? 'ios-arrow-redo' : 'ios-arrow-redo';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -62,13 +62,13 @@ const LocalizarTabScreen = (props) => {
       })}
     >
 
-      {renderScreen(LocalizarPorUsuarioScreen, "Usuário")}
+      {renderScreen(SolicitacoesRecebidasScreen, "Recebidas")}
 
-      {renderScreen(LocalizarPorCargoScreen, "Cargo")}
+      {renderScreen(SolicitacoesRealizadasScreen, "Realizadas")}
 
-    </LocalizarTab.Navigator >
+    </SolicitacoesTab.Navigator >
 
   );
 }
 
-export default LocalizarTabScreen
+export default SolicitacoesTabNavigation

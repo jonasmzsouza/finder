@@ -1,5 +1,4 @@
 import React, {
-  useEffect,
   useState
 } from 'react'
 
@@ -19,7 +18,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import styles, { linearGradienteColor } from '../../styles/Styles'
 
-import { postCargo, putCargo } from '../../services/CargoService';
+import { useFocusEffect } from '@react-navigation/core';
+
+import { postCargo, putCargo } from '../../stores/services/CargoService';
 
 const CadastroCargoScreen = (props) => {
 
@@ -28,6 +29,12 @@ const CadastroCargoScreen = (props) => {
 
   const limparCampos = () => {
     setNome('');
+  }
+
+  const loadInputModoEditar = () => {
+    if(modoEditar) {
+      setNome(item.nome)
+    }
   }
 
   const validarDados = () => {
@@ -48,12 +55,6 @@ const CadastroCargoScreen = (props) => {
     }
 
     return true
-  }
-
-  const loadInputModoEditar = () => {
-    if(modoEditar) {
-      setNome(item.nome)
-    }
   }
 
   const cadastrar = () => {
@@ -79,9 +80,13 @@ const CadastroCargoScreen = (props) => {
     }
   }
 
-  useEffect(() => {
-    loadInputModoEditar()    
-  }, [])    
+  useFocusEffect(
+    React.useCallback(() => {
+      loadInputModoEditar() 
+      return () => {
+      };
+    }, [])
+  );   
 
   return (
     <ScrollView style={[styles.container]}>

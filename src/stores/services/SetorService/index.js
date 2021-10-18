@@ -6,42 +6,42 @@ import axios from "axios"
  * Opção B: https://plufinderapi.herokuapp.com/swagger-ui/
  */
 
-const URL_CARGO_API = 'https://plufinderapi.herokuapp.com/cargo'
+const URL_SETOR_API = 'https://plufinderapi.herokuapp.com/setor'
 
 const headers = new Headers()
     headers.append('Content-Type', 'application/json')
 
 /**
- * Lista todos cargos via API
+ * Lista todos setores via API
  * @returns {Promise}
  */ 
-export const getCargos = () => {
+export const getSetores = () => {
   return axios({
-    url : URL_CARGO_API
+    url : URL_SETOR_API
   })
 }
 
 /**
- * Lista um cargo via API
+ * Lista um setor via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
- export const getCargo = (id) => {
+ export const getSetor = (id) => {
   return axios({
     method : 'get',
-    url : URL_CARGO_API + '/' + id,
+    url : URL_SETOR_API + '/' + id,
   })
 }
 
 /**
- * Cadastra um novo cargo via API
+ * Cadastra um novo setor via API
  * @param {string} nome 
  * @returns {Promise}
  */
-export const postCargo = (nome) => {
+export const postSetor = (nome) => {
   return axios({
     method : 'post',
-    url : URL_CARGO_API,
+    url : URL_SETOR_API,
     headers : headers,
     data : {
       nome
@@ -50,15 +50,15 @@ export const postCargo = (nome) => {
 }
 
 /**
- * Atualiza um cargo via API
+ * Atualiza um setor via API
  * @param {string} id 
  * @param {string} nome
  * @returns {Promise}
  */
- export const putCargo = (id, nome) => {
+ export const putSetor = (id, nome) => {
   return axios({
     method : 'put',
-    url : URL_CARGO_API + '/' + id,
+    url : URL_SETOR_API + '/' + id,
     headers : headers,
     data : {
       nome
@@ -67,13 +67,13 @@ export const postCargo = (nome) => {
 }
 
 /**
- * Exclui um cargo via API
+ * Exclui um setor via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
-export const deleteCargo = (id) => {
+export const deleteSetor = (id) => {
   return axios({
     method : 'delete',
-    url : URL_CARGO_API + '/' + id,
+    url : URL_SETOR_API + '/' + id,
   })
 }

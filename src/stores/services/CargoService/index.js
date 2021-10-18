@@ -6,42 +6,42 @@ import axios from "axios"
  * Opção B: https://plufinderapi.herokuapp.com/swagger-ui/
  */
 
-const URL_SETOR_API = 'https://plufinderapi.herokuapp.com/setor'
+const URL_CARGO_API = 'https://plufinderapi.herokuapp.com/cargo'
 
 const headers = new Headers()
     headers.append('Content-Type', 'application/json')
 
 /**
- * Lista todos setores via API
+ * Lista todos cargos via API
  * @returns {Promise}
  */ 
-export const getSetores = () => {
+export const getCargos = () => {
   return axios({
-    url : URL_SETOR_API
+    url : URL_CARGO_API
   })
 }
 
 /**
- * Lista um setor via API
+ * Lista um cargo via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
- export const getSetor = (id) => {
+ export const getCargo = (id) => {
   return axios({
     method : 'get',
-    url : URL_SETOR_API + '/' + id,
+    url : URL_CARGO_API + '/' + id,
   })
 }
 
 /**
- * Cadastra um novo setor via API
+ * Cadastra um novo cargo via API
  * @param {string} nome 
  * @returns {Promise}
  */
-export const postSetor = (nome) => {
+export const postCargo = (nome) => {
   return axios({
     method : 'post',
-    url : URL_SETOR_API,
+    url : URL_CARGO_API,
     headers : headers,
     data : {
       nome
@@ -50,15 +50,15 @@ export const postSetor = (nome) => {
 }
 
 /**
- * Atualiza um setor via API
+ * Atualiza um cargo via API
  * @param {string} id 
  * @param {string} nome
  * @returns {Promise}
  */
- export const putSetor = (id, nome) => {
+ export const putCargo = (id, nome) => {
   return axios({
     method : 'put',
-    url : URL_SETOR_API + '/' + id,
+    url : URL_CARGO_API + '/' + id,
     headers : headers,
     data : {
       nome
@@ -67,13 +67,13 @@ export const postSetor = (nome) => {
 }
 
 /**
- * Exclui um setor via API
+ * Exclui um cargo via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
-export const deleteSetor = (id) => {
+export const deleteCargo = (id) => {
   return axios({
     method : 'delete',
-    url : URL_SETOR_API + '/' + id,
+    url : URL_CARGO_API + '/' + id,
   })
 }

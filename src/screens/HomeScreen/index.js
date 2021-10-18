@@ -75,7 +75,7 @@ const HomeScreen = (props) => {
           <TouchableOpacity
             style={[styles.center, styles.btnHomeScreen, styles.btnHomeScreenL]}
             onPress={() => { 
-              props.navigation.navigate('LocalizarTabScreen')
+              props.navigation.navigate('LocalizarTabNavigation')
              }}>
             <Image
               source={localizar}
@@ -85,10 +85,10 @@ const HomeScreen = (props) => {
 
           <View style={[styles.btnHomeScreenGroup]}>
 
-            {renderMediumBtn('Solicitações', solicitacoes)}
+            {renderMediumBtn('Solicitações', solicitacoes, 'SolicitacoesTabNavigation')}
 
             {usuario === 'finder' && (
-              renderMediumBtn('Cadastro', cadastros, 'CadastroTabScreen')
+              renderMediumBtn('Cadastro', cadastros, 'CadastroTabNavigation')
             )}
 
           </View>

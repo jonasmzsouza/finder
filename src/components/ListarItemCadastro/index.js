@@ -1,5 +1,4 @@
 import React,{
-  useEffect, 
   useState
 } from 'react'
 
@@ -9,16 +8,18 @@ import {
   RefreshControl,
   SafeAreaView,
   Text,
-  TouchableOpacity,
   View
 } from 'react-native'
+
 import { Button } from 'react-native-elements/dist/buttons/Button';
 
+import { useFocusEffect } from '@react-navigation/core';
+
 import LinearGradient from 'react-native-linear-gradient';
-import { deleteAmbiente, getAmbientes } from '../../services/AmbienteService';
-import { deleteCargo, getCargos } from '../../services/CargoService';
-import { deleteSetor, getSetores } from '../../services/SetorService';
-import { deleteUsuario, getUsuarios } from '../../services/UsuarioService';
+import { deleteAmbiente, getAmbientes } from '../../stores/services/AmbienteService';
+import { deleteCargo, getCargos } from '../../stores/services/CargoService';
+import { deleteSetor, getSetores } from '../../stores/services/SetorService';
+import { deleteUsuario, getUsuarios } from '../../stores/services/UsuarioService';
 
 import styles, { linearGradienteColor, themaColors } from '../../styles/Styles'
 
@@ -52,9 +53,13 @@ const ListarItemCadastro = (props) => {
     .finally(() => setIsRefreshing(false))                 
   }
 
-  useEffect(() => {
-    getInitialData()
-  }, [])
+  useFocusEffect(
+    React.useCallback(() => {
+      getInitialData()
+      return () => {
+      };
+    }, [])
+  );
 
   const editarItem = (item) => {
       props.navigation.navigate(screen, {

@@ -24,7 +24,7 @@ export const getAmbientes = () => {
 /**
  * Lista um ambiente via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
  export const getAmbiente = (id) => {
   return axios({
@@ -94,7 +94,7 @@ export const putAmbiente = (id, codigoDispositivo, nome, codigoSetor, nomeLocali
 /**
  * Exclui um ambiente via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
 export const deleteAmbiente = (id) => {
   return axios({

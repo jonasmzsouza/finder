@@ -24,7 +24,7 @@ export const getUsuarios = () => {
 /**
  * Lista um usuário via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
  export const getUsuario = (id) => {
   return axios({
@@ -77,7 +77,7 @@ export const postUsuario = (nome, idCargo, idSetor) => {
 /**
  * Exclui um usuário via API
  * @param {string} id 
- * @returns 
+ * @returns {Promise}
  */
 export const deleteUsuario = (id) => {
   return axios({

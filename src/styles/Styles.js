@@ -21,7 +21,9 @@ export const themaColors = [
   '#000', 
   '#808080', 
   '#f0f8ff',
-  '#F00'
+  '#F00',
+  '#EEBE44',
+  '#48B009'
 ]
 
 export const linearGradienteColor = [themaColors[7], themaColors[2]]
@@ -121,6 +123,10 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: themaColors[2]
   },
+  containerRadioGroup: {
+    width: '90%',
+    alignItems: 'flex-start'
+  },
   input: {
     color: themaColors[0]
   },
@@ -143,6 +149,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: themaColors[0],
     margin: 5
+  },
+  labelRadioButton: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   linearGradient: {
     flex: 1,
