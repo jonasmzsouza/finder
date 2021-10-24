@@ -29,11 +29,9 @@ import { insertAuthenticationTokens } from '../../database/Db';
 
 const LoginScreen = (props) => {
 
-  const [verificandoToken, setVerificandoToken] = useState(true)
   const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [idUsuario, setIdUsuario] = useState(2)
 
   const redirectHome = () => {
     props.navigation.reset({
@@ -46,12 +44,12 @@ const LoginScreen = (props) => {
     })
   }
 
-  const limparCampos = () => {
+  const clearFields = () => {
     setEmail('');
-    setSenha('');
+    setPassword('');
   }
 
-  const validar = () => {
+  const validateFieldData = () => {
 
     const emailReg = /^([\w]\.?)+@([\w]+\.)+([a-zA-Z]{2,4})+$/;
 
@@ -60,7 +58,7 @@ const LoginScreen = (props) => {
       return false
     }
 
-    if (senha.trim().length === 0) {
+    if (password.trim().length === 0) {
       Alert.alert('Erro', 'Informe corretamente a senha')
       return false
     }
@@ -68,15 +66,12 @@ const LoginScreen = (props) => {
     return true
   }
 
-  const acessar = () => {  
-    if (validar()) {
-      limparCampos()
+  const signin = () => {  
+    if (validateFieldData()) {
+      clearFields()
       setLoading(true)
-      login(email, senha)
+      login(email, password)
         .then((response) => {
-
-          console.log(response.data)
-
           insertAuthenticationTokens(response.data,  (error) => {
            if(error) {
              return Alert.alert('Erro', 'Erro ao guardar o token')
@@ -102,7 +97,7 @@ const LoginScreen = (props) => {
 
           <View style={{ width: '90%', alignSelf: 'center', marginTop: 10 }}>
             <Input
-              style={[styles.input]}
+              style={[styles.field]}
               leftIcon={{
                 color: themaColors[0],
                 name: 'email',
@@ -115,25 +110,25 @@ const LoginScreen = (props) => {
             />
 
             <Input
-              style={[styles.input]}
+              style={[styles.field]}
               leftIcon={{
                 color: themaColors[0],
                 name: 'lock',
                 type: 'font-awesome-5',
                 solid: true
               }}
-              onChangeText={(txt) => setSenha(txt)}
+              onChangeText={(txt) => setPassword(txt)}
               placeholder="Digite sua senha"
               secureTextEntry
-              value={senha}
+              value={password}
             />
           </View>
         </View>
 
         <View>
           <Button
-            buttonStyle={[styles.btn, styles.btnAcessar]}
-            onPress={() => acessar()}
+            buttonStyle={[styles.btn, styles.btnLogin]}
+            onPress={() => signin()}
             title="Acessar"
           />
         </View>

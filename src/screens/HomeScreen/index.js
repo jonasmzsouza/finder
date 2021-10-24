@@ -14,10 +14,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import styles, { linearGradienteColor } from '../../styles/Styles'
-import localizar from '../../assets/img/localizar.png'
-import solicitacoes from '../../assets/img/solicitacoes.png'
-import cadastros from '../../assets/img/cadastros.png'
-import finderLetras from '../../assets/img/finderLetras.png'
+import find from '../../assets/img/find.png'
+import requests from '../../assets/img/requests.png'
+import register from '../../assets/img/register.png'
+import finderLetters from '../../assets/img/finderLetters.png'
 
 import { removeAuthenticationTokens, readAuthenticationTokens } from '../../database/Db';
 
@@ -75,14 +75,14 @@ const HomeScreen = (props) => {
               })
             }}
           >
-            <Text style={[styles.btnSair]}>&times;</Text>
+            <Text style={[styles.btnLogout]}>&times;</Text>
           </TouchableOpacity>
         </View>
 
         <View>
 
           <View style={[styles.center]}>
-            <Image source={finderLetras} />
+            <Image source={finderLetters} />
           </View>
 
           <Text style={[styles.label]}>
@@ -92,19 +92,19 @@ const HomeScreen = (props) => {
           <TouchableOpacity
             style={[styles.center, styles.btnHomeScreen, styles.btnHomeScreenL]}
             onPress={() => { 
-              props.navigation.navigate('LocalizarTabNavigation')
+              props.navigation.navigate('FindTabNavigation')
              }}>
             <Image
-              source={localizar}
+              source={find}
               style={{}} />
             <Text style={[styles.btnHomeScreenTxt, styles.btnHomeScreenTxtL]}>Localizar</Text>
           </TouchableOpacity>
 
           <View style={[styles.btnHomeScreenGroup]}>
 
-            {renderMediumBtn('Solicitações', solicitacoes, 'SolicitacoesTabNavigation')}
+            {renderMediumBtn('Solicitações', requests, 'RequestsTabNavigation')}
 
-            {renderMediumBtn('Cadastro', cadastros, 'CadastroTabNavigation')}
+            {renderMediumBtn('Cadastro', register, 'RegisterTabNavigation')}
 
           </View>
         </View>

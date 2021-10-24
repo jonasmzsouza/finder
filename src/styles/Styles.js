@@ -32,7 +32,7 @@ export const themaColors = [
 export const linearGradienteColor = [themaColors[7], themaColors[2]]
 
 export default StyleSheet.create({
-  boxLocalizar: {
+  findBox: {
     position: 'absolute', 
     bottom : 0, 
     width: '100%', 
@@ -43,7 +43,7 @@ export default StyleSheet.create({
     borderTopEndRadius: 30,
     alignItems: 'center',
   },
-  boxEncontrado: {
+  searchBox: {
     width: '80%',
     height: 80,
     marginTop: 5,
@@ -56,13 +56,13 @@ export default StyleSheet.create({
     shadowRadius: 5,
     opacity: 1    
   },
-  boxEncontradoHeader: {
+  searchBoxHeader: {
     width: '100%', 
     display: 'flex', 
     flexDirection: 'row', 
     justifyContent: 'center'
   },
-  boxEncontradoHeaderTxt: {
+  searchBoxHeaderTxt: {
     fontSize: 18,
     fontWeight: 'bold'
   },
@@ -72,14 +72,14 @@ export default StyleSheet.create({
     height: 45,
     marginTop: 10,
   },
-  btnAcessar: {
+  btnLogin: {
     width: '100%',
   },
   btnActionsGroup: {
     width: '30%', 
     justifyContent : 'center'
   },
-  btnCancelar:{
+  btnCancel:{
     backgroundColor: themaColors[8],
     borderRadius: 30,
     height: 45,
@@ -129,7 +129,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 15
   },
-  btnSair: {
+  btnLogout: {
     fontSize: 40,
     color: themaColors[0],
     fontWeight: 'bold',
@@ -151,7 +151,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold'
   },
-  celula: {
+  cell: {
     width: '100%',
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -179,10 +179,10 @@ export default StyleSheet.create({
   contentItem:{
     paddingHorizontal : '5%'
   },
-  input: {
+  field: {
     color: themaColors[0]
   },
-  inputCadastro: {
+  registrationField: {
     height: 45,
     backgroundColor: themaColors[1],
     borderRadius: 30,
@@ -196,7 +196,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
   },
-  labelCadastro: {
+  fieldLabel: {
     fontSize: 14,
     fontWeight: 'bold',
     color: themaColors[0],
@@ -219,17 +219,17 @@ export default StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10
   },
-  respostaTxt: {
+  searchResponseTxt: {
     fontWeight: 'bold'
   },
-  selectCadastroView: {
+  registrationSelectionView: {
     height: 45,
     borderRadius: 30,
     marginBottom: 5,
     overflow: 'hidden',
     justifyContent: 'center'
   },
-  selectCadastroPicker: {
+  registrationSelectionPicker: {
     color: themaColors[0], 
     backgroundColor: themaColors[1]
   }  

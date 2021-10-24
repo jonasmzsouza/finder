@@ -7,14 +7,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import LocalizarTabNavigation from './src/navigation/LocalizarTabNavigation';
-import SolicitacoesTabNavigation from './src/navigation/SolicitacoesTabNavigation';
-import CadastroTabNavigation from './src/navigation/CadastroTabNavigation';
-import ListarItemCadastro from './src/components/ListarItemCadastro';
-import CadastroUsuarioScreen from './src/screens/CadastroUsuarioScreen';
-import CadastroAmbienteScreen from './src/screens/CadastroAmbienteScreen';
-import CadastroCargoScreen from './src/screens/CadastroCargoScreen';
-import CadastroSetorScreen from './src/screens/CadastroSetorScreen';
+import FindTabNavigation from './src/navigation/FindTabNavigation';
+import RequestsTabNavigation from './src/navigation/RequestsTabNavigation';
+import RegisterTabNavigation from './src/navigation/RegisterTabNavigation';
+import ListRegistrationItem from './src/components/ListRegistrationItem';
+import RegisterUserScreen from './src/screens/RegisterUserScreen';
+import RegisterEnvironmentScreen from './src/screens/RegisterEnvironmentScreen';
+import RegisterJobTitleScreen from './src/screens/RegisterJobTitleScreen';
+import RegisterDepartmentScreen from './src/screens/RegisterDepartmentScreen';
 
 import { themaColors } from './src/styles/Styles';
 
@@ -47,31 +47,31 @@ const App = () => {
         />
 
         <Stack.Screen
-          component={LocalizarTabNavigation}
-          name="LocalizarTabNavigation"
+          component={FindTabNavigation}
+          name="FindTabNavigation"
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          component={SolicitacoesTabNavigation}
-          name="SolicitacoesTabNavigation"
+          component={RequestsTabNavigation}
+          name="RequestsTabNavigation"
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          component={CadastroTabNavigation}
-          name="CadastroTabNavigation"
+          component={RegisterTabNavigation}
+          name="RegisterTabNavigation"
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          component={ListarItemCadastro}
-          name="ListarItemCadastro"
+          component={ListRegistrationItem}
+          name="ListRegistrationItem"
           options={({ route }) => ({ title: route.params.title + " Cadastrados" })}
         />
 
         <Stack.Screen
-          component={CadastroUsuarioScreen}
+          component={RegisterUserScreen}
           name="Usuario"
           options={{
             title : 'Atualização de Usuário'
@@ -79,7 +79,7 @@ const App = () => {
         />
 
         <Stack.Screen
-          component={CadastroAmbienteScreen}
+          component={RegisterEnvironmentScreen}
           name="Ambiente"
           options={{
             title : 'Atualização de Ambiente'
@@ -87,7 +87,7 @@ const App = () => {
         />
 
         <Stack.Screen
-          component={CadastroCargoScreen}
+          component={RegisterJobTitleScreen}
           name="Cargo"
           options={{
             title : 'Atualização de Cargo'
@@ -95,7 +95,7 @@ const App = () => {
         />
 
         <Stack.Screen
-          component={CadastroSetorScreen}
+          component={RegisterDepartmentScreen}
           name="Setor"
           options={{
             title : 'Atualização de Setor'
