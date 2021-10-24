@@ -22,44 +22,42 @@ import { deleteSetor, getSetores } from '../../stores/services/SetorService';
 import { deleteUsuario, getUsuarios } from '../../stores/services/UsuarioService';
 
 import styles, { linearGradienteColor, themaColors } from '../../styles/Styles'
+import { getHeaderAuthJwt } from '../../stores/actions/Actions';
+
+import { readAuthenticationTokens } from '../../database/Db';
+
+import jwtDecode from 'jwt-decode'
 
 const ListarItemCadastro = (props) => {
 
   const { screen, title } = props.route.params || '';
-
   const [itemsData, setItemsData] = useState('')
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const [tokens, setTokens] = useState({})
+  const [jwt, setJwt] = useState({})
 
-  const getInitialData = () => {
+  const getInitialData = (jwt) => {
     setItemsData('')
     setIsRefreshing(true)
     let itemAction
 
     if (screen === 'Usuario')
-      itemAction = getUsuarios()
+      itemAction = getUsuarios(jwt)
     
     else if (screen === 'Ambiente')
-      itemAction = getAmbientes()
+      itemAction = getAmbientes(jwt)
     
     if (screen === 'Cargo')
-      itemAction = getCargos()
+      itemAction = getCargos(jwt)
     
     if (screen === 'Setor')
-      itemAction = getSetores()
+      itemAction = getSetores(jwt)
 
     itemAction
-    .then((response) => setItemsData(response.data))
-    .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))
-    .finally(() => setIsRefreshing(false))                 
+      .then((response) => setItemsData(response.data))
+      .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))
+      .finally(() => setIsRefreshing(false))                 
   }
-
-  useFocusEffect(
-    React.useCallback(() => {
-      getInitialData()
-      return () => {
-      };
-    }, [])
-  );
 
   const editarItem = (item) => {
       props.navigation.navigate(screen, {
@@ -80,23 +78,23 @@ const ListarItemCadastro = (props) => {
             let itemAction
 
             if (screen === 'Usuario')
-              itemAction = deleteUsuario(item.id)
+              itemAction = deleteUsuario(jwt, item.id)
             
             if (screen === 'Ambiente')
-              itemAction = deleteAmbiente(item.id)
+              itemAction = deleteAmbiente(jwt, item.id)
             
             if (screen === 'Cargo')
-              itemAction = deleteCargo(item.id)
+              itemAction = deleteCargo(jwt, item.id)
             
             if (screen === 'Setor')
-              itemAction = deleteSetor(item.id)             
+              itemAction = deleteSetor(jwt, item.id)             
 
             itemAction
-            .then(() => {
-              Alert.alert('Sucesso', screen + ' excluído com sucesso!')
-              getInitialData()
-            })
-            .catch(() => Alert.alert('Erro', 'Não foi possível excluir o ' + screen + '!'))
+              .then(() => {
+                Alert.alert('Sucesso', screen + ' excluído com sucesso!')
+                getInitialData(jwt)
+              })
+              .catch(() => Alert.alert('Erro', 'Não foi possível excluir o ' + screen + '!'))
             
           }
         },
@@ -106,6 +104,21 @@ const ListarItemCadastro = (props) => {
       ]
     )
   }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      readAuthenticationTokens((error, success) => {
+        if ( !error && success && success.length > 0 ) {
+          const payload = jwtDecode(success)
+          setTokens(success)
+          setJwt(getHeaderAuthJwt(success))
+          getInitialData(getHeaderAuthJwt(success))
+        }
+      })
+      return () => {
+      };
+    }, [])
+  );  
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -197,7 +210,7 @@ const ListarItemCadastro = (props) => {
           )}
           refreshControl={
             <RefreshControl
-            onRefresh={ () => getInitialData()}
+            onRefresh={ () => getInitialData(jwt)}
             refreshing={ isRefreshing } 
             colors={ [ themaColors[0] ] } />
           }

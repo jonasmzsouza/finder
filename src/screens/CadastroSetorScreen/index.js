@@ -22,10 +22,18 @@ import styles, { linearGradienteColor } from '../../styles/Styles'
 
 import { postSetor, putSetor } from '../../stores/services/SetorService';
 
+import { getHeaderAuthJwt } from '../../stores/actions/Actions';
+
+import { readAuthenticationTokens } from '../../database/Db';
+
+import jwtDecode from 'jwt-decode'
+
 const CadastroSetorScreen = (props) => {
 
   const [nome, setNome] = useState('');
   const { item, modoEditar } = props.route.params || '';
+  const [tokens, setTokens] = useState({})
+  const [jwt, setJwt] = useState({})
 
   const limparCampos = () => {
     setNome('');
@@ -59,7 +67,7 @@ const CadastroSetorScreen = (props) => {
 
   const cadastrar = () => {
     if (validarDados()) {
-      postSetor(nome)
+      postSetor(jwt, nome)
         .then(() => {
           Alert.alert('Sucesso', 'Setor cadastrado com sucesso!')
           limparCampos()
@@ -70,7 +78,7 @@ const CadastroSetorScreen = (props) => {
 
   const atualizar = () => {
     if(validarDados()) {
-      putSetor(item.id, nome)
+      putSetor(jwt, item.id, nome)
         .then(() => {
           Alert.alert('Sucesso', 'Setor atualizado com sucesso!')
           limparCampos()
@@ -82,7 +90,14 @@ const CadastroSetorScreen = (props) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      loadInputModoEditar() 
+      readAuthenticationTokens((error, success) => {
+        if ( !error && success && success.length > 0 ) {
+          const payload = jwtDecode(success)
+          setTokens(success)
+          setJwt(getHeaderAuthJwt(success))
+          loadInputModoEditar()
+        }
+      })
       return () => {
       };
     }, [])

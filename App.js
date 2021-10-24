@@ -20,7 +20,7 @@ import { themaColors } from './src/styles/Styles';
 
 const Stack = createNativeStackNavigator()
 
-const App = (props) => {
+const App = () => {
 
   return (
     <NavigationContainer>

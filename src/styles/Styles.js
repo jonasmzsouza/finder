@@ -23,12 +23,49 @@ export const themaColors = [
   '#f0f8ff',
   '#F00',
   '#EEBE44',
-  '#48B009'
+  '#48B009',
+  '#D2A1A1',
+  '#FDDA82',
+  '#A2D2A1'
 ]
 
 export const linearGradienteColor = [themaColors[7], themaColors[2]]
 
 export default StyleSheet.create({
+  boxLocalizar: {
+    position: 'absolute', 
+    bottom : 0, 
+    width: '100%', 
+    height: 170,
+    marginTop: 20,
+    paddingVertical: 5,
+    borderTopStartRadius: 30, 
+    borderTopEndRadius: 30,
+    alignItems: 'center',
+  },
+  boxEncontrado: {
+    width: '80%',
+    height: 80,
+    marginTop: 5,
+    padding: 10, 
+    backgroundColor: '#FFF', 
+    borderRadius: 10,
+    shadowOffset: { width: 20, height: 20 },
+    shadowColor: themaColors[5],
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    opacity: 1    
+  },
+  boxEncontradoHeader: {
+    width: '100%', 
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'center'
+  },
+  boxEncontradoHeaderTxt: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
   btn: {
     backgroundColor: themaColors[0],
     borderRadius: 30,
@@ -47,6 +84,14 @@ export default StyleSheet.create({
     borderRadius: 30,
     height: 45,
     marginTop: 10,
+  },
+  btnCloseBoxContanier: {
+    position: 'absolute', 
+    right: '5%'
+  },
+  btnCloseBoxTxt: {
+    fontSize: 28, 
+    lineHeight: 30
   },
   btnHomeScreen: {
     backgroundColor: themaColors[1],
@@ -127,6 +172,13 @@ export default StyleSheet.create({
     width: '90%',
     alignItems: 'flex-start'
   },
+  content: {
+    flex: 1, 
+    width: '100%'
+  },
+  contentItem:{
+    paddingHorizontal : '5%'
+  },
   input: {
     color: themaColors[0]
   },
@@ -166,6 +218,9 @@ export default StyleSheet.create({
     height: 250,
     justifyContent: 'center',
     borderRadius: 10
+  },
+  respostaTxt: {
+    fontWeight: 'bold'
   },
   selectCadastroView: {
     height: 45,

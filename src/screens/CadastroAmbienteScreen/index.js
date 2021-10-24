@@ -22,7 +22,11 @@ import styles, { linearGradienteColor } from '../../styles/Styles'
 
 import { getSetores } from '../../stores/services/SetorService';
 import { postAmbiente, putAmbiente } from '../../stores/services/AmbienteService';
-import { getItems } from '../../stores/actions/Actions';
+import { getItems, getHeaderAuthJwt } from '../../stores/actions/Actions';
+
+import { readAuthenticationTokens } from '../../database/Db';
+
+import jwtDecode from 'jwt-decode'
 
 const CadastroAmbienteScreen = (props) => {
 
@@ -35,6 +39,8 @@ const CadastroAmbienteScreen = (props) => {
   const [tamanho, setTamanho] = useState('');
   const [numeroProximidade, setNumeroProximidade] = useState('');
   const { item, modoEditar } = props.route.params || '';
+  const [tokens, setTokens] = useState({})
+  const [jwt, setJwt] = useState({})
 
   const limparCampos = () => {
     setCodigoDispositivo('');
@@ -85,7 +91,7 @@ const CadastroAmbienteScreen = (props) => {
         mensagemErro += '\n - ' + element
       });
 
-      alert("Informe corretamente:" + mensagemErro);
+      Alert.alert("Erro", "Informe corretamente:" + mensagemErro);
       return false;
     }
 
@@ -94,18 +100,18 @@ const CadastroAmbienteScreen = (props) => {
 
   const cadastrar = () => {
     if (validarDados()) {
-      postAmbiente(codigoDispositivo, nome, selectedSetor, nomeLocalizacao, andar, tamanho, numeroProximidade)
-      .then(() => {
-        Alert.alert('Sucesso', 'Ambiente cadastrado com sucesso!')
-        limparCampos()
-      })
-      .catch(() => Alert.alert('Erro', 'Não foi possível cadastrar o ambiente!'))
+      postAmbiente(jwt, codigoDispositivo, nome, selectedSetor, nomeLocalizacao, andar, tamanho, numeroProximidade)
+        .then(() => {
+          Alert.alert('Sucesso', 'Ambiente cadastrado com sucesso!')
+          limparCampos()
+        })
+        .catch(() => Alert.alert('Erro', 'Não foi possível cadastrar o ambiente!'))
     }
   }
 
   const atualizar = () => {
     if(validarDados()) {
-      putAmbiente(item.id, codigoDispositivo, nome, selectedSetor, nomeLocalizacao, andar, tamanho, numeroProximidade)
+      putAmbiente(jwt, item.id, codigoDispositivo, nome, selectedSetor, nomeLocalizacao, andar, tamanho, numeroProximidade)
         .then(() => {
           Alert.alert('Sucesso', 'Ambiente atualizado com sucesso!')
           limparCampos()
@@ -115,16 +121,24 @@ const CadastroAmbienteScreen = (props) => {
     }
   }
 
-  const getSetorData = () => {
+  const getSetorData = (jwt) => {
     setSetorData('')
-    getSetores().then((response) => setSetorData(response.data))
-    .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                 
+    getSetores(jwt)
+      .then((response) => setSetorData(response.data))
+      .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                 
   }
 
   useFocusEffect(
     React.useCallback(() => {
-      getSetorData()
-      loadInputModoEditar()
+      readAuthenticationTokens((error, success) => {
+        if ( !error && success && success.length > 0 ) {
+          const payload = jwtDecode(success)
+          setTokens(success)
+          setJwt(getHeaderAuthJwt(success))
+          getSetorData(getHeaderAuthJwt(success))
+          loadInputModoEditar()
+        }
+      })      
       return () => {
       };
     }, [])

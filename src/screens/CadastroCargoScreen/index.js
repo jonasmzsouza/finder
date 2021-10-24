@@ -22,10 +22,18 @@ import { useFocusEffect } from '@react-navigation/core';
 
 import { postCargo, putCargo } from '../../stores/services/CargoService';
 
+import { getHeaderAuthJwt } from '../../stores/actions/Actions';
+
+import { readAuthenticationTokens } from '../../database/Db';
+
+import jwtDecode from 'jwt-decode'
+
 const CadastroCargoScreen = (props) => {
 
   const [nome, setNome] = useState('');
   const { item, modoEditar } = props.route.params || '';
+  const [tokens, setTokens] = useState({})
+  const [jwt, setJwt] = useState({}) 
 
   const limparCampos = () => {
     setNome('');
@@ -59,7 +67,7 @@ const CadastroCargoScreen = (props) => {
 
   const cadastrar = () => {
     if (validarDados()) {
-      postCargo(nome)
+      postCargo(jwt, nome)
         .then(() => {
           Alert.alert('Sucesso', 'Cargo cadastrado com sucesso!')
           limparCampos()
@@ -70,7 +78,7 @@ const CadastroCargoScreen = (props) => {
 
   const atualizar = () => {
     if(validarDados()) {
-      putCargo(item.id, nome)
+      putCargo(jwt, item.id, nome)
         .then(() => {
           Alert.alert('Sucesso', 'Cargo atualizado com sucesso!')
           limparCampos()
@@ -82,7 +90,14 @@ const CadastroCargoScreen = (props) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      loadInputModoEditar() 
+      readAuthenticationTokens((error, success) => {
+        if ( !error && success && success.length > 0 ) {
+          const payload = jwtDecode(success)
+          setTokens(success)
+          setJwt(getHeaderAuthJwt(success))
+          loadInputModoEditar()
+        }
+      })
       return () => {
       };
     }, [])

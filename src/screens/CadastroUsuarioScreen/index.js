@@ -23,7 +23,11 @@ import styles, { linearGradienteColor } from '../../styles/Styles'
 import { getCargos } from '../../stores/services/CargoService';
 import { getSetores } from '../../stores/services/SetorService';
 import { postUsuario, putUsuario } from '../../stores/services/UsuarioService';
-import { getItems } from '../../stores/actions/Actions';
+import { getItems, getHeaderAuthJwt } from '../../stores/actions/Actions';
+
+import { readAuthenticationTokens } from '../../database/Db';
+
+import jwtDecode from 'jwt-decode'
 
 const CadastroUsuarioScreen = (props) => {
 
@@ -33,7 +37,9 @@ const CadastroUsuarioScreen = (props) => {
   const [selectedCargo, setSelectedCargo] = useState(0);
   const [selectedSetor, setSelectedSetor] = useState(0);
   const { item, modoEditar } = props.route.params || '';
-
+  const [tokens, setTokens] = useState({})
+  const [jwt, setJwt] = useState({})
+  
   const limparCampos = () => {
     setNome('');
     setSelectedCargo(0);
@@ -76,7 +82,7 @@ const CadastroUsuarioScreen = (props) => {
 
   const cadastrar = () => {
     if (validarDados()) {
-      postUsuario(nome, selectedCargo, selectedSetor)
+      postUsuario(jwt, nome, selectedCargo, selectedSetor)
         .then(() => {
           Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!')
           limparCampos()
@@ -87,7 +93,7 @@ const CadastroUsuarioScreen = (props) => {
 
   const atualizar = () => {
     if(validarDados()) {
-      putUsuario(item.id, nome, selectedCargo, selectedSetor)
+      putUsuario(jwt, item.id, nome, selectedCargo, selectedSetor)
         .then(() => {
           Alert.alert('Sucesso', 'Usuário atualizado com sucesso!')
           limparCampos()
@@ -97,23 +103,32 @@ const CadastroUsuarioScreen = (props) => {
     }
   }
 
-  const getCargoData = () => {
+  const getCargoData = (jwt) => {
     setCargoData('')
-    getCargos().then((response) => setCargoData(response.data))
-    .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                
+    getCargos(jwt)
+      .then((response) => setCargoData(response.data))
+      .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                
   }
 
-  const getSetorData = () => {
+  const getSetorData = (jwt) => {
     setSetorData('')
-    getSetores().then((response) => setSetorData(response.data))
-    .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                
+    getSetores(jwt)
+      .then((response) => setSetorData(response.data))
+      .catch(() => Alert.alert('Erro', 'Não foi possível recuperar os dados da API'))                
   }
 
   useFocusEffect(
     React.useCallback(() => {
-      getCargoData()
-      getSetorData()
-      loadInputModoEditar()
+      readAuthenticationTokens((error, success) => {
+        if ( !error && success && success.length > 0 ) {
+          const payload = jwtDecode(success)
+          setTokens(success)
+          setJwt(getHeaderAuthJwt(success))
+          getCargoData(getHeaderAuthJwt(success))
+          getSetorData(getHeaderAuthJwt(success))
+          loadInputModoEditar()
+        }
+      })
       return () => {
       };
     }, [])
@@ -131,7 +146,7 @@ const CadastroUsuarioScreen = (props) => {
             </Text>
 
             <TextInput
-              onChangeText={(txt) => setNome(xt)}
+              onChangeText={(txt) => setNome(txt)}
               style={[styles.input, styles.inputCadastro]}
               underlineColorAndroid='transparent'
               value={nome}

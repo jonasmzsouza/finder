@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 
 import {
   Image,
@@ -16,9 +19,13 @@ import solicitacoes from '../../assets/img/solicitacoes.png'
 import cadastros from '../../assets/img/cadastros.png'
 import finderLetras from '../../assets/img/finderLetras.png'
 
+import { removeAuthenticationTokens, readAuthenticationTokens } from '../../database/Db';
+
+import jwtDecode from 'jwt-decode'
+
 const HomeScreen = (props) => {
 
-  const { usuario } = props.route.params || '';
+  const [tokens, setTokens] = useState({})
 
   function renderMediumBtn(name, imageName, screen) {
     return (
@@ -43,19 +50,29 @@ const HomeScreen = (props) => {
     )
   }
 
+  useEffect(() => {
+    readAuthenticationTokens((error, success) => {
+      if ( !error && success && success.length > 0 ) {
+        const payload = jwtDecode(success)
+        setTokens(success)
+      }
+    }) 
+  }, [])
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={linearGradienteColor} style={styles.linearGradient}>
         <View style={{ width: '100%', height: '8%', bottom: '15%' }}>
           <TouchableOpacity
-
             onPress={() => {
-              props.navigation.reset({
-                index: 0,
-                routes: [{
-                  name: 'LoginScreen'
-                }]
-              });
+              removeAuthenticationTokens(() => {
+                props.navigation.reset({
+                  index: 0,
+                  routes: [{
+                    name: 'LoginScreen'
+                  }]
+                });
+              })
             }}
           >
             <Text style={[styles.btnSair]}>&times;</Text>
@@ -87,9 +104,7 @@ const HomeScreen = (props) => {
 
             {renderMediumBtn('Solicitações', solicitacoes, 'SolicitacoesTabNavigation')}
 
-            {usuario === 'finder' && (
-              renderMediumBtn('Cadastro', cadastros, 'CadastroTabNavigation')
-            )}
+            {renderMediumBtn('Cadastro', cadastros, 'CadastroTabNavigation')}
 
           </View>
         </View>

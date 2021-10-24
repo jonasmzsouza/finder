@@ -3,6 +3,8 @@ import React, {
 } from 'react'
 
 import {
+  ActivityIndicator,
+  Alert,
   SafeAreaView,
   Image,
   View
@@ -21,46 +23,71 @@ import styles, {
 } from '../../styles/Styles'
 
 import finder from '../../assets/img/finder.png'
+import { login } from '../../stores/services/LoginService';
+
+import { insertAuthenticationTokens } from '../../database/Db';
 
 const LoginScreen = (props) => {
 
-  const [usuario, setUsuario] = useState('');
-  const [senha, setSenha] = useState('');
+  const [verificandoToken, setVerificandoToken] = useState(true)
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [idUsuario, setIdUsuario] = useState(2)
+
+  const redirectHome = () => {
+    props.navigation.reset({
+      index : 0,
+      routes : [
+        {
+          name : 'HomeScreen'
+        }
+      ]
+    })
+  }
 
   const limparCampos = () => {
-    setUsuario('');
+    setEmail('');
     setSenha('');
   }
 
   const validar = () => {
-    if (usuario.trim().length === 0) {
-      alert('Informe corretamente o usuário')
+
+    const emailReg = /^([\w]\.?)+@([\w]+\.)+([a-zA-Z]{2,4})+$/;
+
+    if (!emailReg.test(email)) {
+      Alert.alert('Erro', 'Informe um email válido')
       return false
     }
 
     if (senha.trim().length === 0) {
-      alert('Informe corretamente a senha')
-      return false
-    }
-
-    if (usuario != 'finder' && senha != 'finder') {
-      alert('Usuário/senha inválidos')
+      Alert.alert('Erro', 'Informe corretamente a senha')
       return false
     }
 
     return true
   }
 
-  const acessar = () => {
+  const acessar = () => {  
     if (validar()) {
       limparCampos()
-      props.navigation.reset({
-        index: 0,
-        routes: [{
-          name: 'HomeScreen',
-          params: { usuario }
-        }]
-      })
+      setLoading(true)
+      login(email, senha)
+        .then((response) => {
+
+          console.log(response.data)
+
+          insertAuthenticationTokens(response.data,  (error) => {
+           if(error) {
+             return Alert.alert('Erro', 'Erro ao guardar o token')
+           }
+            redirectHome() 
+          })
+        })
+        .catch(() => {
+          Alert.alert('Erro', ' E-mail ou senha incorretos!')
+        })
+        .finally(() => setLoading(false))
     }
   }
 
@@ -78,13 +105,13 @@ const LoginScreen = (props) => {
               style={[styles.input]}
               leftIcon={{
                 color: themaColors[0],
-                name: 'user',
-                type: 'font-awesome-5',
+                name: 'email',
+                type: 'entypo',
                 solid: true,
               }}
-              onChangeText={(txt) => setUsuario(txt)}
-              placeholder="Digite seu usuário"
-              value={usuario}
+              onChangeText={(txt) => setEmail(txt)}
+              placeholder="Digite seu email"
+              value={email}
             />
 
             <Input
@@ -110,7 +137,8 @@ const LoginScreen = (props) => {
             title="Acessar"
           />
         </View>
-
+      
+        <ActivityIndicator animating={ loading } />
       </LinearGradient>
     </SafeAreaView>
   )
