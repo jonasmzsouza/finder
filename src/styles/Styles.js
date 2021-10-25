@@ -196,6 +196,10 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
   },
+  listLabel:{
+    fontSize: 14,
+    fontWeight: 'bold'
+  },
   fieldLabel: {
     fontSize: 14,
     fontWeight: 'bold',

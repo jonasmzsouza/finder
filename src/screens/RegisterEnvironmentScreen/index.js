@@ -56,6 +56,10 @@ const RegisterEnvironmentScreen = (props) => {
     if(editMode) {
       setName(item.nome)
       setSelectedDepartment(item.setor.id)
+      setLocationName(item.nomeLocalizacao)
+      setFloor(String(item.andar))
+      setSize(String(item.tamanho))
+      setProximityNumber(String(item.numeroProximidade))
     }
   }
 

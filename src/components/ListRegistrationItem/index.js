@@ -147,38 +147,38 @@ const ListRegistrationItem = (props) => {
               <View style={{ justifyContent : 'center', width: '70%' }}>
                 {screen === 'Usuario' && (
                   <View>
-                    <Text>Id do Usuario: {item.id}</Text>
-                    {/* <Text>Nro. Dispositivo: {item.nrDispositivo}</Text> */}
-                    <Text>Nome do Usuário: {item.nome}</Text>
-                    <Text>Cargo: {item.cargo.nome}</Text>
-                    <Text>Setor: {item.setor.nome}</Text>
+                    <Text style={[styles.listLabel]}>Id do Usuario: {item.id}</Text>
+                    {/* <Text style={[styles.listLabel]}>Nro. Dispositivo: {item.nrDispositivo}</Text> */}
+                    <Text style={[styles.listLabel]}>Nome do Usuário: {item.nome}</Text>
+                    <Text style={[styles.listLabel]}>Cargo: {item.cargo.nome}</Text>
+                    <Text style={[styles.listLabel]}>Setor: {item.setor.nome}</Text>
                   </View>
                 )}
 
                 {screen === 'Ambiente' && (
                   <View>
-                    <Text>Id do Ambiente: {item.id}</Text>
-                    <Text>Código do Dispositivo: {item.codigoDispositivo}</Text>
-                    <Text>Nome do Ambiente: {item.nome}</Text>
-                    <Text>Setor: {item.setor.nome}</Text>
-                    <Text>Nome da Localização: {item.nomeLocalizacao}</Text>
-                    <Text>Andar: {item.andar}</Text>
-                    <Text>Tamanho: {item.tamanho}</Text>
-                    <Text>Proximidade: {item.numeroProximidade}</Text>
+                    <Text style={[styles.listLabel]}>Id do Ambiente: {item.id}</Text>
+                    <Text style={[styles.listLabel]}>Código do Dispositivo: {item.codigoDispositivo}</Text>
+                    <Text style={[styles.listLabel]}>Nome do Ambiente: {item.nome}</Text>
+                    <Text style={[styles.listLabel]}>Setor: {item.setor.nome}</Text>
+                    <Text style={[styles.listLabel]}>Nome da Localização: {item.nomeLocalizacao}</Text>
+                    <Text style={[styles.listLabel]}>Andar: {item.andar}</Text>
+                    <Text style={[styles.listLabel]}>Tamanho: {item.tamanho}</Text>
+                    <Text style={[styles.listLabel]}>Proximidade: {item.numeroProximidade}</Text>
                   </View>
                 )}
 
                 {screen === 'Cargo' && (
                   <View>
-                    <Text>Id do Cargo: {item.id}</Text>
-                    <Text>Nome do Cargo: {item.nome}</Text>
+                    <Text style={[styles.listLabel]}>Id do Cargo: {item.id}</Text>
+                    <Text style={[styles.listLabel]}>Nome do Cargo: {item.nome}</Text>
                   </View>
                 )}
 
                 {screen === 'Setor' && (
                   <View>
-                    <Text>Id do Setor: {item.id}</Text>
-                    <Text>Nome do Setor: {item.nome}</Text>
+                    <Text style={[styles.listLabel]}>Id do Setor: {item.id}</Text>
+                    <Text style={[styles.listLabel]}>Nome do Setor: {item.nome}</Text>
                   </View>
                 )}
               </View>
