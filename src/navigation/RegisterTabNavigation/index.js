@@ -16,13 +16,13 @@ import RegisterJobTitleScreen from '../../screens/RegisterJobTitleScreen';
 import RegisterDepartmentScreen from '../../screens/RegisterDepartmentScreen';
 import RegisterUserScreen from '../../screens/RegisterUserScreen';
 
-const CadastroTab = createBottomTabNavigator()
+const RegisterTab = createBottomTabNavigator()
 
-const CadastroTabNavigation = (props) => {
+const RegisterTabNavigation = (props) => {
 
   function renderScreen(screen, name) {
     return (
-      <CadastroTab.Screen
+      <RegisterTab.Screen
         component={screen}
         name={name}
         options={{
@@ -44,7 +44,7 @@ const CadastroTabNavigation = (props) => {
   }
 
   return (
-    <CadastroTab.Navigator
+    <RegisterTab.Navigator
       screenOptions={({ route }) => ({
         headerStyle: {
           backgroundColor: themaColors[0]
@@ -76,9 +76,9 @@ const CadastroTabNavigation = (props) => {
 
       {renderScreen(RegisterDepartmentScreen, "Setor")}
 
-    </CadastroTab.Navigator >
+    </RegisterTab.Navigator >
 
   );
 }
 
-export default CadastroTabNavigation
+export default RegisterTabNavigation

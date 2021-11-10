@@ -71,20 +71,20 @@ const FindByDepartment = (props) => {
   }
   
   const validateFieldData = () => {
-    let erros = [];
+    let errors = [];
 
     if (selectedJobTitle === 0 || selectedJobTitle === undefined)
-      erros.push('o cargo');
+      errors.push('o cargo');
 
     if (selectedDepartment === 0 || selectedDepartment === undefined)
-      erros.push('o setor');      
+      errors.push('o setor');      
 
     if (selectedRadio.length === 0)
-    erros.push('o grau de urgência');
+    errors.push('o grau de urgência');
 
-    if (erros.length > 0) {
+    if (errors.length > 0) {
       let mensagemErro = '';
-      erros.forEach(element => {
+      errors.forEach(element => {
         mensagemErro += '\n - ' + element
       });
       Alert.alert("Erro", "Informe corretamente:" + mensagemErro);

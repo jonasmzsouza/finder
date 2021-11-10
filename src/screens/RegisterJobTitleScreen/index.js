@@ -47,14 +47,14 @@ const RegisterJobTitleScreen = (props) => {
 
   const validateFieldData = () => {
 
-    let erros = [];
+    let errors = [];
     
     if (name.trim().length == 0)
-      erros.push('o nome do cargo');
+      errors.push('o nome do cargo');
 
-    if (erros.length > 0) {
+    if (errors.length > 0) {
       let mensagemErro = '';
-      erros.forEach(element => {
+      errors.forEach(element => {
         mensagemErro += '\n - ' + element
       });
 

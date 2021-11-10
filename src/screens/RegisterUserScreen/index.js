@@ -29,7 +29,7 @@ import { readAuthenticationTokens } from '../../database/Db';
 
 import jwtDecode from 'jwt-decode'
 
-const RegisterJobTitleScreen = (props) => {
+const RegisterUserScreen = (props) => {
 
   const [name, setName] = useState('');
   const [jobTitleData, setJobTitleData] = useState('');
@@ -246,4 +246,4 @@ const RegisterJobTitleScreen = (props) => {
   )
 }
 
-export default RegisterJobTitleScreen
+export default RegisterUserScreen

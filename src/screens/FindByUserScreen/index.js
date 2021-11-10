@@ -67,17 +67,17 @@ const FindByUserScreen = (props) => {
   }
 
   const validateFieldData = () => {
-    let erros = [];
+    let errors = [];
 
     if (selecterUser === 0 || selecterUser === undefined)
-      erros.push('o usuário');
+      errors.push('o usuário');
 
     if (selectedRadio.length === 0)
-    erros.push('o grau de urgência');
+    errors.push('o grau de urgência');
 
-    if (erros.length > 0) {
+    if (errors.length > 0) {
       let mensagemErro = '';
-      erros.forEach(element => {
+      errors.forEach(element => {
         mensagemErro += '\n - ' + element
       });
       Alert.alert("Erro", "Informe corretamente:" + mensagemErro);

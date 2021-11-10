@@ -66,32 +66,32 @@ const RegisterEnvironmentScreen = (props) => {
   const validateFieldData = () => {
     const numReg = /[^0-9]/g;
 
-    let erros = [];
+    let errors = [];
 
     if (deviceCode.trim().length == 0 || numReg.test(deviceCode))
-      erros.push('o código do dispositivo');
+      errors.push('o código do dispositivo');
 
     if (name.trim().length == 0)
-      erros.push('o nome do ambiente');
+      errors.push('o nome do ambiente');
 
     if (selectedDepartment === 0 || selectedDepartment === undefined)
-      erros.push('o setor');
+      errors.push('o setor');
 
     if (locationName.trim().length == 0)
-      erros.push('o nome da localização');
+      errors.push('o nome da localização');
 
     if (floor.trim().length == 0 || numReg.test(floor))
-      erros.push('o número do andar');
+      errors.push('o número do andar');
 
     if (size.trim().length == 0 || numReg.test(size))
-      erros.push('o número do tamanho');
+      errors.push('o número do tamanho');
 
     if (proximityNumber.trim().length == 0 || numReg.test(proximityNumber))
-      erros.push('o número da proximidade');
+      errors.push('o número da proximidade');
 
-    if (erros.length > 0) {
+    if (errors.length > 0) {
       let mensagemErro = '';
-      erros.forEach(element => {
+      errors.forEach(element => {
         mensagemErro += '\n - ' + element
       });
 
